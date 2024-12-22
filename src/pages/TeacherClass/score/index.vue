@@ -111,7 +111,7 @@
           </div>
         </div>
 
-        <div class="submit_btn">
+        <div class="submit_btn" v-show="fill">
           <el-button type="primary" round @click="handleScore">
             提交分数
           </el-button>
