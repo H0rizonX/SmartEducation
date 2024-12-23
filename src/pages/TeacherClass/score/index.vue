@@ -143,6 +143,7 @@
 import { ref } from "vue";
 import { reqWork, submitScores } from "@/api";
 // import { ElMessage } from "element-plus";
+import { Message } from "element3";
 export default {
   data() {
     const textarea = ref("");
@@ -190,7 +191,8 @@ export default {
         const res = await reqWork(taskId, id);
         // console.log(res);
         this.topic = res.data.data;
-        // console.log(this.topic);
+        console.log("返回的所有作业信息:");
+        console.log(this.topic);
 
         for (let t of this.topic) {
           if (t.questionType === "选择题") {
@@ -199,7 +201,7 @@ export default {
           } else if (t.questionType === "判断题") {
             this.judgmentArr.push(t);
             this.judgment = true;
-          } else if (t.questionType === "简答题") {
+          } else if (t.questionType === "应用题") {
             this.fillArr.push(t);
             this.fill = true;
           } else {
@@ -245,6 +247,16 @@ export default {
         const res = await submitScores(taskId, id, data);
         console.log("分数上传");
         console.log(res);
+
+        // alert("作业批改成功");
+
+        Message({
+          message: "作业批改成功",
+          type: "success",
+        });
+        setTimeout(() => {
+          window.close();
+        }, 4000);
       } catch (error) {
         console.log(error);
       }
